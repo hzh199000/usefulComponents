@@ -53,3 +53,117 @@ const handleClipboard = (text: string, event: MouseEvent) => {
 </script>
 ```
 [具体使用参考npm地址：https://www.npmjs.com/package/clipboard](https://www.npmjs.com/package/clipboard)
+## 3.返回顶部
+```
+ <div class="main">
+    <div class="line">
+      aaa
+    </div>
+    <div class="line">
+      aaa
+    </div>
+    <div class="line">
+      aaa
+    </div>
+    <div class="line">
+      aaa
+    </div>
+    <div class="line">
+      aaa
+    </div>
+    <div class="line">
+      aaa
+    </div>
+    <div class="line">
+      aaa
+    </div>
+    <div class="line">
+      aaa
+    </div>
+    <div class="line">
+      aaa
+    </div>
+    <div class="line">
+      aaa
+    </div>
+    <div class="line">
+      aaa
+    </div>
+    <div class="line">
+      aaa
+    </div>
+    <div class="line">
+      aaa
+    </div>
+    <div class="line">
+      aaa
+    </div>
+    <div class="line">
+      aaa
+    </div>
+    <div class="line">
+      aaa
+    </div>
+    <div class="line">
+      aaa
+    </div>
+    <div class="line">
+      aaa
+    </div>
+    <div class="line">
+      aaa
+    </div>
+    <div class="line">
+      aaa
+    </div>
+    <div class="line">
+      aaa
+    </div>
+    <div class="line">
+      aaa
+    </div>
+    <div class="line">
+      aaa
+    </div>
+    <div class="line">
+      aaa
+    </div>
+    <div class="line">
+      aaa
+    </div>
+    <div class="line">
+      aaa
+    </div>
+    <div class="back" @click="backToTop">
+      点我回顶部
+    </div>
+  </div>
+```
+```
+const state = reactive({
+  visible: false,
+  isMoving: false,
+  interval: 0
+})
+const easeInOutQuad = (t: number, b: number, c: number, d: number) => {
+  if ((t /= d / 2) < 1) return (c / 2) * t * t + b
+  return (-c / 2) * (--t * (t - 2) - 1) + b
+}
+const backToTop = () => {
+  if (state.isMoving) return
+  const start = window.pageYOffset
+  let i = 0
+  state.isMoving = true
+  const interval = setInterval(() => {
+    const next = Math.floor(easeInOutQuad(10 * i, start, -start, 500))
+    if (next <= 0) {
+      window.scrollTo(0, 0)
+      clearInterval(interval)
+      state.isMoving = false
+    } else {
+      window.scrollTo(0, next)
+    }
+    i++
+  }, 16.7)
+}
+```
